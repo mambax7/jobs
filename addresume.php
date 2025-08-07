@@ -129,11 +129,34 @@ if (!empty($_POST['submit'])) {
         }
     }
 
-    $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('jobs_resume') . " values ('', '$cid', '$name', '$title', '$status', '$exp', '$expire', '$private', '$tel', '$salary', '$typeprice', '$date', '$email', '$submitter', '$usid',  '$town',  '$state',  '$valid', '', '$filename', '0')");
+    $resumeHandler = $helper->getHandler('Resume');
+    $resume = $resumeHandler->create();
+    $resume->setVar('cid', $cid);
+    $resume->setVar('name', $name);
+    $resume->setVar('title', $title);
+    $resume->setVar('status', $status);
+    $resume->setVar('exp', $exp);
+    $resume->setVar('expire', $expire);
+    $resume->setVar('private', $private);
+    $resume->setVar('tel', $tel);
+    $resume->setVar('salary', $salary);
+    $resume->setVar('typeprice', $typeprice);
+    $resume->setVar('date', $date);
+    $resume->setVar('email', $email);
+    $resume->setVar('submitter', $submitter);
+    $resume->setVar('usid', $usid);
+    $resume->setVar('town', $town);
+    $resume->setVar('state', ''.$state);
+    $resume->setVar('valid', $valid);
+    $resume->setVar('resume', $filename);
+
+    if (!$resumeHandler->insert($resume)) {
+        redirect_header('index.php', 3, _JOBS_RES_NOT_ADDED);
+    }
 
     unset($_SESSION['name'], $_SESSION['title'], $_SESSION['status'], $_SESSION['exp'], $_SESSION['expire'], $_SESSION['private'], $_SESSION['tel'], $_SESSION['salary'], $_SESSION['typeprice'], $_SESSION['submitter'], $_SESSION['town'], $_SESSION['state'], $_SESSION['make_resume'], $_SESSION['email']);
 
-    $lid = $xoopsDB->getInsertId();
+    $lid = $resume->getVar('lid');
     if ('1' == $valid) {
         $notificationHandler = xoops_getHandler('notification');
 

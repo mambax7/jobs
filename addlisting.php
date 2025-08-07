@@ -140,14 +140,39 @@ if (!empty($_POST['submit'])) {
 
     $newid = $xoopsDB->genId($xoopsDB->prefix('jobs_listing') . '_lid_seq');
 
-    $sql = sprintf('INSERT INTO '
-                   . $xoopsDB->prefix('jobs_listing')
-                   . " (lid, cid, title, status, expire, type, company, desctext, requirements, tel, price, typeprice, contactinfo, contactinfo1, contactinfo2, date, email, submitter, usid, town, state, valid, photo, view) VALUES ('$newid', '$cid', '$title', '$status', '$expire', '$type', '$company', '$desctext', '$requirements', '$tel', '$price', '$typeprice', '$contactinfo', '$contactinfo1', '$contactinfo2', '$date', '$email', '$submitter', '$usid', '$town', '$state', '$valid', '$photo', '$view')");
-    $xoopsDB->query($sql);
+    $listingHandler = $helper->getHandler('Listing');
+    $listing = $listingHandler->create();
+    $listing->setVar('cid', $cid);
+    $listing->setVar('title', $title);
+    $listing->setVar('status', $status);
+    $listing->setVar('expire', $expire);
+    $listing->setVar('type', $type);
+    $listing->setVar('company', $company);
+    $listing->setVar('desctext', $desctext);
+    $listing->setVar('requirements', ''.$requirements);
+    $listing->setVar('tel', $tel);
+    $listing->setVar('price', $price);
+    $listing->setVar('typeprice', $typeprice);
+    $listing->setVar('contactinfo', $contactinfo);
+    $listing->setVar('contactinfo1', $contactinfo1);
+    $listing->setVar('contactinfo2', $contactinfo2);
+    $listing->setVar('date', $date);
+    $listing->setVar('email', $email);
+    $listing->setVar('submitter', $submitter);
+    $listing->setVar('usid', $usid);
+    $listing->setVar('town', $town);
+    $listing->setVar('state', $state);
+    $listing->setVar('valid', $valid);
+    $listing->setVar('photo', $photo);
+    $listing->setVar('view', $view);
+
+    if (!$listingHandler->insert($listing)) {
+        redirect_header('index.php', 3, _JOBS_JOB_NOT_ADDED);
+    }
 
     if ('1' == $valid) {
         $notificationHandler      = xoops_getHandler('notification');
-        $lid                      = $xoopsDB->getInsertId();
+        $lid                      = $listing->getVar('lid');
         $tags                     = [];
         $tags['LID']              = $lid;
         $tags['TITLE']            = $title;

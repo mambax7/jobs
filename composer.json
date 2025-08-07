@@ -1,0 +1,32 @@
+{
+    "name": "xoops-modules/jobs",
+    "description": "Jobs module for XOOPS CMS",
+    "type": "xoops-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "John Mordo",
+            "email": "jlm69@xoops.org"
+        },
+        {
+            "name": "XOOPS Development Team",
+            "homepage": "https://xoops.org/"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.10",
+        "friendsofphp/php-cs-fixer": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "XoopsModules\\Jobs\\": "class/"
+        }
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}

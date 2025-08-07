@@ -18,7 +18,8 @@
  */
 
 use XoopsModules\Jobs;
-include __DIR__ . '/../preloads/autoloader.php';
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 $moduleDirNameUpper   = strtoupper($moduleDirName); //$capsDirName

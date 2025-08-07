@@ -59,14 +59,14 @@ if ($xoopsUser) {
         $comp_users = [$comp_usid, $comp_user1, $comp_user2];
         if (in_array($member_id, $comp_users)) {
             if (1 == $ok) {
+                if (!$GLOBALS['xoopsSecurity']->check()) {
+                    redirect_header('index.php', 3, $GLOBALS['xoopsSecurity']->getErrors());
+                }
                 $xoopsDB->queryF('DELETE FROM ' . $xoopsDB->prefix('jobs_listing') . ' WHERE lid=' . $xoopsDB->escape($lid) . '');
                 redirect_header('index.php', 3, _JOBS_JOBDEL);
             } else {
-                echo "<table width='100%' border='0' cellspacing='1' cellpadding='8'><tr class='bg4'><td valign='top'>\n";
-                echo '<br><center>';
-                echo '<b>' . _JOBS_SURDELANN . '</b><br><br>';
+                xoops_confirm(['op' => 'deljob', 'lid' => $lid, 'ok' => 1], 'deljob.php', _JOBS_SURDELANN);
             }
-            echo '[ <a href="deljob.php?lid=' . addslashes($lid) . '&amp;ok=1">' . _JOBS_OUI . '</a> | <a href="viewjobs.php?lid=' . addslashes($lid) . '">' . _JOBS_NON . '</a> ]<br><br>';
             echo '</td></tr></table>';
         }
     } else {

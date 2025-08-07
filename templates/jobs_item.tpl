@@ -15,22 +15,22 @@
             </tr>
         <{/if}>
         <tr>
-            <td class="head"><{$submitter}><{if $show_company}>&nbsp;<{$job_for}>&nbsp;<{$company}><{/if}> &nbsp;&nbsp;&nbsp;
+            <td class="head"><{$submitter|escape}><{if $show_company}>&nbsp;<{$job_for}>&nbsp;<{$company|escape}><{/if}> &nbsp;&nbsp;&nbsp;
                 (<{$read}>)&nbsp;&nbsp;<{$modify}>&nbsp;&nbsp;<{$all_jobs}>
             </td>
         </tr>
         <tr>
-            <td class="even"><{$admin}> <b><{$title}>: </b>&nbsp;&nbsp;<{$type}></td>
+            <td class="even"><{$admin}> <b><{$title|escape}>: </b>&nbsp;&nbsp;<{$type|escape}></td>
         </tr>
         <tr>
             <td class="odd"><b><{$desctext_head}></b><br><br><{$desctext}></td>
         </tr>
         <tr>
-            <td class="odd"><b><{$requirements_head}></b><br><br><{$requirements}><br><br></td>
+            <td class="odd"><b><{$requirements_head}></b><br><br><{$requirements}></td>
         </tr>
         <{if $price_price}>
         <tr>
-            <td class="odd"><b><{$price_head}></b><{$price_price}>&nbsp;&nbsp;<{$price_typeprice}></td>
+            <td class="odd"><b><{$price_head}></b><{$price_price|escape}>&nbsp;&nbsp;<{$price_typeprice|escape}></td>
         </tr>
         <tr>
             <{/if}>
@@ -46,11 +46,11 @@
             </td>
         </tr>
         <tr>
-            <td class="odd"><b><{$local_head}></b> <{$local_town}></td>
+            <td class="odd"><b><{$local_head}></b> <{$local_town|escape}></td>
         </tr>
         <{if $show_state && $state !=""}>
             <tr>
-                <td class="odd"><b><{$state_head}></b> <{$state}></td>
+                <td class="odd"><b><{$state_head}></b> <{$state|escape}></td>
             </tr>
         <{/if}>
         <{if $xoops_isuser}>
